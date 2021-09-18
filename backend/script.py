@@ -25,8 +25,8 @@ vid.set(4, WIDTH)
 last_time = 0
 
 # Main loop
-with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic_wc, \
-     mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic_vid:
+with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose_wc, \
+     mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose_vid:
     while wc.isOpened() and vid.isOpened():
         # Framerate
         current_time = time.time()
@@ -38,9 +38,9 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
         wc_success, wc_frame = wc.read()
         image = cv2.cvtColor(wc_frame, cv2.COLOR_BGR2RGB)
         try:
-            results = holistic_wc.process(image)
+            results = pose_wc.process(image)
         except Exception as e:
-            holistic_wc= mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5)
+            pose_wc= mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5)
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
         # Draw pose
@@ -55,9 +55,9 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
         image = cv2.cvtColor(vid_frame, cv2.COLOR_BGR2RGB)
         image = cv2.resize(image, (WIDTH, HEIGHT), interpolation=cv2.INTER_AREA)
         try:
-            results = holistic_vid.process(image)
+            results = pose_vid.process(image)
         except Exception as e:
-            holistic_vid = mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5)
+            pose_vid = mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5)
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
         # Draw pose
