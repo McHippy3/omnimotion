@@ -1,0 +1,8 @@
+matplotlib==3.4.3
+mediapipe==0.8.7.1
+numpy==1.21.2
+opencv-contrib-python==4.5.3.56
+opencv-python==4.5.3.56
+flask==2.0.1
+flask_cors==3.0.10
+flask-socketio==5.1.1
