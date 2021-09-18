@@ -21,40 +21,36 @@ wc.set(3, HEIGHT)
 wc.set(4, WIDTH)
 vid.set(3, HEIGHT)
 vid.set(4, WIDTH)
-last_time = 0
 
 # Main loop
-with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
+with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic_wc, \
+     mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic_vid:
     while wc.isOpened() and vid.isOpened():
         # Webcam
         # Limit framerate to 15 fps
-        current_time = time.time()
-        fps = 1/(current_time-last_time)
-        last_time = current_time
-        if fps <= 15:
-            wc_success, wc_frame = wc.read()
-            image = cv2.cvtColor(wc_frame, cv2.COLOR_BGR2RGB)
-            try:
-                results = holistic.process(image)
-            except Exception as e:
-                holistic = mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5)
-            image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+        wc_success, wc_frame = wc.read()
+        image = cv2.cvtColor(wc_frame, cv2.COLOR_BGR2RGB)
+        try:
+            results = holistic_wc.process(image)
+        except Exception as e:
+            holistic_wc= mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5)
+        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-            # Draw pose
-            mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_holistic.POSE_CONNECTIONS,
-                mp_drawing.DrawingSpec(color=(245, 117, 66), thickness=2, circle_radius=4),
-                mp_drawing.DrawingSpec(color=(245, 66, 230), thickness=2, circle_radius=2))
-            
-            cv2.imshow('Raw Webcam Feed', image)
+        # Draw pose
+        mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_holistic.POSE_CONNECTIONS,
+            mp_drawing.DrawingSpec(color=(245, 117, 66), thickness=2, circle_radius=4),
+            mp_drawing.DrawingSpec(color=(245, 66, 230), thickness=2, circle_radius=2))
+        
+        cv2.imshow('Raw Webcam Feed', image)
 
         # Video footage
         vid_success, vid_frame = vid.read()
         image = cv2.cvtColor(vid_frame, cv2.COLOR_BGR2RGB)
         image = cv2.resize(image, (WIDTH, HEIGHT), interpolation=cv2.INTER_AREA)
         try:
-            results = holistic.process(image)
+            results = holistic_vid.process(image)
         except Exception as e:
-            holistic = mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5)
+            holistic_vid = mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5)
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
         # Draw pose
