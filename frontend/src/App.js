@@ -1,5 +1,4 @@
-import { useEffect, useRef } from 'react';
-import logo from './logo.svg';
+import { useState, useEffect, useRef } from 'react';
 import Button from '@mui/material/Button';
 import './App.css';
 
@@ -17,6 +16,20 @@ function App() {
       const frame = webcamRef.current.getScreenshot();
       socket.emit("new_frame", frame);
     }, 67);
+
+    socket.on('performance', val => {
+      switch (val) {
+        case 0:
+          break;
+        case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+      }
+    });
+
   }, []);
 
   return (
@@ -35,7 +48,7 @@ function App() {
         <div style={{display: 'flex', flex: 0.8, flexDirection: 'row'}}>
           {/*COL 1*/}
           <div style={{ flex: 0.5}}>
-
+            <Webcam style={{borderRadius: 10}} ref={webcamRef} />
           </div>
 
 
@@ -57,7 +70,6 @@ function App() {
         </div>
 
       </header>
-      <Webcam ref={webcamRef} />
     </div>
   );
 }

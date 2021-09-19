@@ -4,7 +4,7 @@ from flask import Flask, render_template, session, request, \
 from flask_socketio import SocketIO, emit, disconnect
 import base64
 import numpy
-import math
+import random
 from analyzer import *
 
 async_mode = None
@@ -33,7 +33,7 @@ def calculate_performance():
         socketio.sleep(2)
         calc_perf(perf)
         socketio.emit('performance',
-                      {'value': math.randint(0,3)})
+                      {'value': random.randint(0, 3)})
 
 
 @socketio.event
