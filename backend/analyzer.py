@@ -52,7 +52,7 @@ def analyze_webcam(wc_frame, pose_wc):
                                     color=(245, 117, 66), thickness=2, circle_radius=4),
                                 mp_drawing.DrawingSpec(color=(245, 66, 230), thickness=2, circle_radius=2))
 
-    cv2.imshow('Raw Webcam Feed', image)
+    cv2.imwrite('0.png', image)
 
 def analyze_pose(wc_frame, vid_frame, pose_wc, pose_vid, last_time, perf):
     # Webcam

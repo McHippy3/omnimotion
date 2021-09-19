@@ -4,6 +4,7 @@ from flask import Flask, render_template, session, request, \
 from flask_socketio import SocketIO, emit, disconnect
 import base64
 import numpy
+import math
 from analyzer import *
 
 async_mode = None
@@ -28,22 +29,21 @@ def index():
 
 def calculate_performance():
     global perf
-    count = 0
     while True:
         socketio.sleep(2)
-        count += 1
         calc_perf(perf)
-        socketio.emit('my_response',
-                      {'data': 'Server generated event', 'count': count})
+        socketio.emit('performance',
+                      {'value': math.randint(0,3)})
 
 
 @socketio.event
 def new_frame(frame):
+    if not frame:
+        return
     jpg_original = base64.b64decode(frame[22:])
     jpg_as_np = np.frombuffer(jpg_original, dtype=np.uint8)
     img = cv2.imdecode(jpg_as_np, flags=1)
-    cv2.imwrite('./0.png', img)
-    socketio.sleep(2)
+    analyze_webcam(img, pose_wc)
 
 
 @socketio.event
