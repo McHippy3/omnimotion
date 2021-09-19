@@ -9,7 +9,7 @@ from analyzer import *
 async_mode = None
 
 app = Flask(__name__)
-socketio = SocketIO(app, async_mode=async_mode)
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode=async_mode)
 thread = None
 thread_lock = Lock()
 
@@ -39,9 +39,11 @@ def calculate_performance():
 
 @socketio.event
 def new_frame(frame):
-    jpg_original = base64.b64decode(frame)
+    jpg_original = base64.b64decode(frame[22:])
     jpg_as_np = np.frombuffer(jpg_original, dtype=np.uint8)
     img = cv2.imdecode(jpg_as_np, flags=1)
+    cv2.imwrite('./0.png', img)
+    socketio.sleep(2)
 
 
 @socketio.event
