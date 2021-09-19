@@ -10,6 +10,8 @@ const ENDPOINT = "http://127.0.0.1:5000";
 function App() {
   const webcamRef = useRef(null);
 
+  const [val, setVal] = useState(0);
+
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
     setInterval(() => {
@@ -17,20 +19,15 @@ function App() {
       socket.emit("new_frame", frame);
     }, 67);
 
-    socket.on('performance', val => {
-      switch (val) {
-        case 0:
-          break;
-        case 1:
-          break;
-        case 2:
-          break;
-        case 3:
-          break;
-      }
+    socket.on('performance', x => {
+      setVal(x)
     });
 
   }, []);
+
+  useEffect(() => {
+    console.log("please update again")
+  }, val);
 
   return (
     <div className="App">
@@ -48,7 +45,7 @@ function App() {
         <div style={{display: 'flex', flex: 0.8, flexDirection: 'row'}}>
           {/*COL 1*/}
           <div style={{ flex: 0.5}}>
-            <Webcam style={{borderRadius: 10}} ref={webcamRef} />
+            <Webcam style={{borderRadius: 10, boxShadow: "0px 0px 70px red"}} ref={webcamRef} />
           </div>
 
 
