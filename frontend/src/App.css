@@ -13,7 +13,45 @@
   }
 }
 
-.App-header {
+.box {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  background-color: #0074E1;
+}
+
+.box::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 300vh;
+  height: 300vh;
+  background: lightskyblue;
+  top: -50vh;
+  transform: translateX(-20%) rotate(0deg);
+  border-radius: 45%;
+  animation: fill 7s ease-in infinite;
+}
+
+@keyframes fill {
+  0% {
+    top: -300vh;
+    transform: translateX(-20%) rotate(360deg);
+  }
+  90% {
+    top: -50vh;
+    transform: translateX(-20%) rotate(0deg);
+  }
+  100% {
+    background: #0074E1;
+  }
+}
+
+/*.App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -22,7 +60,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+}*/
 
 .App-link {
   color: #61dafb;
