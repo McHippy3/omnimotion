@@ -3,13 +3,19 @@ from flask import Flask, render_template, session, request, \
     copy_current_request_context
 from flask_socketio import SocketIO, emit, disconnect
 import base64
-import numpy
 import random
 from analyzer import *
+import os
+
+UPLOAD_FOLDER = 'videos'
 
 async_mode = None
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['SECRET_KEY'] = open('key.txt', 'r').read()    
+
+
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode=async_mode)
 thread = None
 thread_lock = Lock()
@@ -20,6 +26,24 @@ pose_vid = None
 last_time = 0
 last_perf_check = 0
 perf = {'dist': 0, 'weight': 0}
+
+
+@app.route('/upload_file', methods=['POST'])
+def upload_file():
+    # check if the post request has the file part
+    if 'file' not in request.files:
+        print('No file part')
+        return 'Failure'
+    file = request.files['file']
+    # If the user does not select a file, the browser submits an
+    # empty file without a filename.
+    if file.filename == '':
+        print('No selected file')
+        return 'Failure'
+    if file:
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], 'video.mp4'))
+        return 'Success'
+    return 'Failure'
 
 
 @app.route('/')
