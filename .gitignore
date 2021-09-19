@@ -3,3 +3,4 @@ backend/videos
 __pycache__/
 0.png
 node_modules/
+key.txt
