@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import Button from '@mui/material/Button';
 import './App.css';
 
 function App() {
@@ -9,6 +10,13 @@ function App() {
         <p style={{ color: '#F0F4EF' }}>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+
+        <div style={{marginBottom: 15}}>
+         <Button variant="contained" className = "uploadButton">
+          Upload File
+          </Button>
+        </div>
+
         <a
           className="App-link"
           href="https://reactjs.org"

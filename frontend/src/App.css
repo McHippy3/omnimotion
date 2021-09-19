@@ -24,6 +24,10 @@
   color: white;
 }*/
 
+.uploadButton {
+  width: 20%;
+}
+
 .box {
   position: absolute;
   z-index: -1;
