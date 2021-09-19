@@ -11,9 +11,14 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
 
-        <div style={{marginBottom: 15}}>
-         <Button variant="contained" className = "uploadButton" style={{backgroundColor: "#F26430"}}>
-          Upload File
+        <div style={{ marginBottom: 15 }}>
+          <Button variant="contained" className="uploadButton" style={{ backgroundColor: "#F26430" }} component="label">
+            Upload File
+            <input
+              type="file"
+              accept=".mp4"
+            hidden
+            />
           </Button>
         </div>
 
