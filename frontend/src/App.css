@@ -30,6 +30,8 @@
 }
 
 .box {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   z-index: -1;
   width: 100%;
@@ -40,7 +42,6 @@
   background-color: #1D3461;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   font-size: calc(10px + 2vmin);
 }
