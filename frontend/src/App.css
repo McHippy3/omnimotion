@@ -32,7 +32,7 @@
   left: 0;
   top: 0;
   overflow: hidden;
-  background-color: #0074E1;
+  background-color: #1D3461;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -46,7 +46,7 @@
   z-index: -1;
   width: 300vh;
   height: 300vh;
-  background: lightskyblue;
+  background: #009DDC;
   top: -50vh;
   transform: translateX(-20%) rotate(0deg);
   border-radius: 45%;
@@ -63,12 +63,12 @@
     transform: translateX(-20%) rotate(0deg);
   }
   100% {
-    background: #0074E1;
+    background: #1D3461;
   }
 }
 
 .App-link {
-  color: #61dafb;
+  color: #F0F4EF;
 }
 
 @keyframes App-logo-spin {
