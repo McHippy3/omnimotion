@@ -12,7 +12,7 @@ function App() {
         </p>
 
         <div style={{marginBottom: 15}}>
-         <Button variant="contained" className = "uploadButton">
+         <Button variant="contained" className = "uploadButton" style={{backgroundColor: "#F26430"}}>
           Upload File
           </Button>
         </div>
