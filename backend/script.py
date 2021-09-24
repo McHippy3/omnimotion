@@ -29,7 +29,7 @@ JOINTS = ((RIGHT_WRIST, 20),
           (LEFT_KNEE, 3))
 
 VIDEO_NAME = 'Workout Dance'
-VIDEO_PATH = 'videos/workout_vid.mp4'
+VIDEO_PATH = 'videos/video.mp4'
 
 wc = cv2.VideoCapture(0)
 vid = cv2.VideoCapture(VIDEO_PATH)

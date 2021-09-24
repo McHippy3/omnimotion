@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
+import useInterval from './useInterval';
 import ReactPlayer from "react-player";
 import Button from '@mui/material/Button';
 import './App.css';
@@ -14,24 +15,28 @@ function App() {
 
   const [videoFilePath, setVideoFilePath] = useState(null);
   const [videoPlaying, setVideoPlaying] = useState(false);
-  const [val, setVal] = useState(0);
+  const [perfVal, setPerfVal] = useState(0);
+  const videoPlayer = useRef(null);
 
-  useEffect(() => {
-    const socket = socketIOClient(ENDPOINT);
-    setInterval(() => {
-      const frame = webcamRef.current.getScreenshot();
-      socket.emit("new_frame", frame);
-    }, 67);
+  const socket = socketIOClient(ENDPOINT);
 
-    socket.on('performance', x => {
-      setVal(x)
-    });
+  useInterval(() => {
+    if (videoPlaying) {
+      try {
+        const vid_frame = captureVideoFrame(videoPlayer.current.getInternalPlayer(), 'jpeg').dataUri;
+        socket.emit('new_frame', vid_frame);
+      } catch (err) {
+      }
+    }
+    else {
+      const wc_frame = webcamRef.current.getScreenshot();
+      socket.emit('new_frame', wc_frame);
+    }
+  }, 67);
 
-  }, []);
-
-  useEffect(() => {
-    console.log("please update again")
-  }, val);
+  // socket.on('performance', x => {
+  //   setPerfVal(x)
+  // });
 
   const handleVideoUpload = (event) => {
     setVideoFilePath(URL.createObjectURL(event.target.files[0]));
@@ -61,7 +66,7 @@ function App() {
           {/*COL 2*/}
           <div style={{ display: 'flex', flexDirection: 'column', flex: 0.5, alignItems: 'center', justifyContent: 'space-evenly' }}>
             <div style={{ flex: 0.8, display: videoPlaying ? "": "none" }}>
-              <ReactPlayer id="video-file" url={videoFilePath} playing={videoPlaying} controls={true} />
+              <ReactPlayer id="video-file" ref={videoPlayer} url={videoFilePath} playing={videoPlaying} controls={true} />
             </div>
             <Button variant="contained" className="uploadButton" style={{ backgroundColor: "#F26430", width: '30%', display: videoPlaying ? "none" : "" }} component="label">
               Upload File
