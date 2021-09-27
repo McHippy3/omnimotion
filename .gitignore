@@ -4,3 +4,5 @@ __pycache__/
 0.png
 node_modules/
 key.txt
+backend/*.png
+backend/*.jpeg
