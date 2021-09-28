@@ -33,8 +33,7 @@ def calculate_performance():
     while True:
         socketio.sleep(2)
         socketio.emit('performance',
-                      {'value': random.randint(0,3)})
-                      #{'value': calc_perf(perf)})
+                      {'value': calc_perf(perf)})
 
 
 @socketio.event

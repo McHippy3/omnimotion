@@ -87,7 +87,6 @@ def calc_perf(perf):
     score = perf['dist']/perf['weight'] if perf['weight'] else 1
     perf['dist'] = 0
     perf['weight'] = 0
-    print(score)
     if score >= 0.25:
         return 0
     elif score >= 0.20:

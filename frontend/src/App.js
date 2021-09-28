@@ -17,6 +17,7 @@ function App() {
   const [videoFilePath, setVideoFilePath] = useState(null);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [perfVal, setPerfVal] = useState(0);
+  const [boxShadowType, setBoxShadowType] = useState("")
   const [wcFlex, setWCFlex] = useState(0.5);
   const [vidFlex, setVidFlex] = useState(0.5);
   const videoPlayer = useRef(null);
@@ -25,7 +26,20 @@ function App() {
 
   useEffect(() => {
     socket.on('performance', newPerfVal => {
-      setPerfVal(newPerfVal);
+      setPerfVal(newPerfVal.value);
+      switch (newPerfVal.value) {
+        case 1:
+          setBoxShadowType("0px 0px 70px blue");
+          break;
+        case 2:
+          setBoxShadowType("0px 0px 70px green");
+          break;
+        case 3:
+          setBoxShadowType("0px 0px 70px yellow");
+          break;
+        default:
+          setBoxShadowType("0px 0px 70px red");
+      }
     });
   }, []);
 
@@ -41,7 +55,7 @@ function App() {
         console.log(err)
       }
     }
-  }, 100);
+  }, 250);
 
   const handleVideoUpload = (event) => {
     setVideoFilePath(URL.createObjectURL(event.target.files[0]));
@@ -58,15 +72,15 @@ function App() {
           {/*TODO: Add logo*/}
 
           <h1 style={{ color: '#F0F4EF' }}>
-            OmniMotion
+            OmniMotion {perfVal}
           </h1>
         </div>
 
 
         <div style={{ display: 'flex', flex: 0.8, flexDirection: 'row' }}>
           {/*COL 1*/}
-          <div style={{ flex: wcFlex, alignItems: 'center'}}>
-            <Webcam style={{ maxWidth: "80%", borderRadius: 10, boxShadow: "0px 0px 70px red" }} ref={webcamRef} />
+          <div style={{ flex: wcFlex, alignItems: 'center' }}>
+            <Webcam style={{ maxWidth: "80%", borderRadius: 10, boxShadow: boxShadowType }} ref={webcamRef} />
           </div>
 
 
