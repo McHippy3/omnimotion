@@ -7,6 +7,7 @@ import './App.css';
 import Webcam from "react-webcam";
 import captureVideoFrame from "capture-video-frame";
 import socketIOClient from "socket.io-client";
+import resizedDataURL from './ImageHelpers';
 
 const ENDPOINT = "http://127.0.0.1:5000";
 
@@ -28,28 +29,19 @@ function App() {
     });
   }, []);
 
-  useInterval(() => {
+  useInterval(async () => {
     if (videoPlaying) {
       try {
         const wc_frame = webcamRef.current.getScreenshot();
         const vid_frame = captureVideoFrame(videoPlayer.current.getInternalPlayer(), 'jpeg').dataUri;
 
-        // Downscale video frame using offscreen canvas
-        var canvas = document.createElement('canvas'),
-        ctx = canvas.getContext('2d');
-
-        canvas.width = 768;
-        canvas.height = 480;
-
-        ctx.drawImage(vid_frame, 0, 0, 768, );
-
         socket.emit('new_frame_wc', wc_frame);
-        socket.emit('new_frame_vid', canvas.toDataURL('image/jpeg'));
+        socket.emit('new_frame_vid', await resizedDataURL(vid_frame, 576, 360));
       } catch (err) {
         console.log(err)
       }
     }
-  }, 1000);
+  }, 100);
 
   const handleVideoUpload = (event) => {
     setVideoFilePath(URL.createObjectURL(event.target.files[0]));
