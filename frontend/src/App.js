@@ -9,6 +9,8 @@ import captureVideoFrame from "capture-video-frame";
 import socketIOClient from "socket.io-client";
 import resizedDataURL from './ImageHelpers';
 
+import logo from './images/logo.jpg';
+
 const ENDPOINT = "http://127.0.0.1:5000";
 
 function App() {
@@ -17,7 +19,7 @@ function App() {
   const [videoFilePath, setVideoFilePath] = useState(null);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [perfVal, setPerfVal] = useState(0);
-  const [boxShadowType, setBoxShadowType] = useState("")
+  const [shadowAnimation, setShadowAnimation] = useState("none")
   const [wcFlex, setWCFlex] = useState(0.5);
   const [vidFlex, setVidFlex] = useState(0.5);
   const videoPlayer = useRef(null);
@@ -28,17 +30,20 @@ function App() {
     socket.on('performance', newPerfVal => {
       setPerfVal(newPerfVal.value);
       switch (newPerfVal.value) {
+        case 0:
+          setShadowAnimation("fading-shadow-red");
+          break;
         case 1:
-          setBoxShadowType("0px 0px 70px blue");
+          setShadowAnimation("fading-shadow-blue");
           break;
         case 2:
-          setBoxShadowType("0px 0px 70px green");
+          setShadowAnimation("fading-shadow-green");
           break;
         case 3:
-          setBoxShadowType("0px 0px 70px yellow");
+          setShadowAnimation("fading-shadow-yellow");
           break;
         default:
-          setBoxShadowType("0px 0px 70px red");
+          setShadowAnimation("none");
       }
     });
   }, []);
@@ -68,19 +73,15 @@ function App() {
     <div className="App">
       <header className="box">
 
-        <div style={{ flex: 0.2, alignItems: 'center' }}>
-          {/*TODO: Add logo*/}
-
-          <h1 style={{ color: '#F0F4EF' }}>
-            OmniMotion {perfVal}
-          </h1>
+        <div style={{ flex: 0.2, alignItems: 'center', padding: '10px' }}>
+          <img src={logo} style={{ borderRadius: '10px' }} width="250px" alt="OmniMotion logo"/>
         </div>
 
 
         <div style={{ display: 'flex', flex: 0.8, flexDirection: 'row' }}>
           {/*COL 1*/}
           <div style={{ flex: wcFlex, alignItems: 'center' }}>
-            <Webcam style={{ maxWidth: "80%", borderRadius: 10, boxShadow: boxShadowType }} ref={webcamRef} />
+            <Webcam id="webcam" style={{ animation: `${shadowAnimation} 2s infinite` }} ref={webcamRef} />
           </div>
 
 

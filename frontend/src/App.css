@@ -77,11 +77,52 @@
   color: #F0F4EF;
 }
 
+#webcam {
+  max-width: 80%;
+  border-radius: 10;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes fading-shadow-yellow {
+  0% {
+    box-shadow: 0px 0px 70px yellow;
+  }
+  100% {
+    box-shadow: 0px 0px 0px yellow;
+  }
+}
+
+@keyframes fading-shadow-green {
+  0% {
+    box-shadow: 0px 0px 70px green;
+  }
+  100% {
+    box-shadow: 0px 0px 0px green;
+  }
+}
+
+@keyframes fading-shadow-blue {
+  0% {
+    box-shadow: 0px 0px 70px blue;
+  }
+  100% {
+    box-shadow: 0px 0px 0px blue;
+  }
+}
+
+@keyframes fading-shadow-red {
+  0% {
+    box-shadow: 0px 0px 70px red;
+  }
+  100% {
+    box-shadow: 0px 0px 0px red;
   }
 }

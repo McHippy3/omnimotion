@@ -84,7 +84,9 @@ def analyze_pose(pose_wc, pose_vid, perf):
 
 
 def calc_perf(perf):
-    score = perf['dist']/perf['weight'] if perf['weight'] else 1
+    if perf['weight'] == 0:
+        return -1
+    score = perf['dist']/perf['weight']
     perf['dist'] = 0
     perf['weight'] = 0
     if score >= 0.25:

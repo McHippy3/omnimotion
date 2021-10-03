@@ -82,7 +82,7 @@ def connect():
 
 
 @socketio.on('disconnect')
-def test_disconnect():
+def disconnect():
     print('Client disconnected', request.sid)
 
 
