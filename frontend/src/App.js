@@ -18,7 +18,7 @@ function App() {
 
   const [videoFilePath, setVideoFilePath] = useState(null);
   const [videoPlaying, setVideoPlaying] = useState(false);
-  const [perfVal, setPerfVal] = useState(0);
+  const [performance, setPerformance] = useState("");
   const [shadowAnimation, setShadowAnimation] = useState("none")
   const [wcFlex, setWCFlex] = useState(0.5);
   const [vidFlex, setVidFlex] = useState(0.5);
@@ -28,25 +28,29 @@ function App() {
 
   useEffect(() => {
     socket.on('performance', newPerfVal => {
-      setPerfVal(newPerfVal.value);
       switch (newPerfVal.value) {
         case 0:
           setShadowAnimation("fading-shadow-red");
+          setPerformance("X")
           break;
         case 1:
           setShadowAnimation("fading-shadow-blue");
+          setPerformance("Good")
           break;
         case 2:
           setShadowAnimation("fading-shadow-green");
+          setPerformance("Great")
           break;
         case 3:
           setShadowAnimation("fading-shadow-yellow");
+          setPerformance("Amazing!")
           break;
         default:
           setShadowAnimation("none");
+          setPerformance("")
       }
     });
-  }, []);
+  }, [socket]);
 
   useInterval(async () => {
     if (videoPlaying) {
@@ -82,6 +86,7 @@ function App() {
           {/*COL 1*/}
           <div style={{ flex: wcFlex, alignItems: 'center' }}>
             <Webcam id="webcam" style={{ animation: `${shadowAnimation} 2s infinite` }} ref={webcamRef} />
+            <h6 style={{ color: 'white' }}>{performance}</h6>
           </div>
 
 
