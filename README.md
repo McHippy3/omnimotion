@@ -7,7 +7,7 @@ then analyzes the movements to track the relative similarity between the user an
 ![motion capture](https://github.com/McHippy3/htn-2021/blob/master/motion_capture.png)
 
 ## See It In Action
-https://drive.google.com/file/d/1-rYI2kRKO1TceDfKKomV_kMaZnIfV_m1/view?usp=sharing
+https://drive.google.com/file/d/16MuGKOmOyrkf2nSaGpdEEz_kmgnZhoeq/view?usp=sharing
 ![screenshot from web application](https://github.com/McHippy3/htn-2021/blob/master/ui.png)
 
 ## Technologies Used
