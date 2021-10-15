@@ -2,7 +2,7 @@
 A full-stack application that allows you to "Just Dance" to anything. 
 
 ## Installation
-1. `git clone https://github.com/McHippy3/htn-2021` in your preferred directory
+1. `git clone https://github.com/McHippy3/omnimotion` in your preferred directory
 2. Open the cloned folder in a code editor
 3. Open a terminal and `cd` into the `frontend` folder
 4. Run `npm i` to install the required node modules
