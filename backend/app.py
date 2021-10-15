@@ -3,7 +3,6 @@ from flask import Flask, render_template, session, request, \
     copy_current_request_context
 from flask_socketio import SocketIO, emit, disconnect
 import base64
-import random
 import numpy as np
 
 from analyzer import *
@@ -11,7 +10,7 @@ from analyzer import *
 async_mode = None
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = open('key.txt', 'r').read()    
+app.config['SECRET_KEY'] = open('key.txt', 'r').read()
 
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode=async_mode)
 thread = None
